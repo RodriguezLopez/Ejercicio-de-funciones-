@@ -1,0 +1,189 @@
+import random
+import string
+
+# Funciones Nivel Básico
+def saludar():
+    nombre = input("Ingresa tu nombre: ")
+    print(f"¡Hola, {nombre}! Bienvenido.")
+
+def sumar():
+    a = float(input("Primer número: "))
+    b = float(input("Segundo número: "))
+    print("Resultado:", a + b)
+
+def es_par():
+    n = int(input("Número: "))
+    print("Par" if n % 2 == 0 else "Impar")
+
+def es_mayor_de_edad():
+    edad = int(input("Edad: "))
+    print("Mayor de edad" if edad >= 18 else "Menor de edad")
+
+def celsius_a_fahrenheit():
+    c = float(input("Celsius: "))
+    f = (c * 9/5) + 32
+    print(f"{c}°C = {f}°F")
+
+def area_triangulo():
+    base = float(input("Base: "))
+    altura = float(input("Altura: "))
+    print("Área:", (base * altura) / 2)
+
+def mayor_de_lista():
+    numeros = list(map(int, input("Números separados por espacio: ").split()))
+    print("Mayor número:", max(numeros))
+
+def contar_letra():
+    palabra = input("Palabra: ")
+    letra = input("Letra: ")
+    print("Cantidad:", palabra.lower().count(letra.lower()))
+
+# Funciones Nivel Intermedio
+def filtrar_pares():
+    nums = list(map(int, input("Lista de números: ").split()))
+    print("Pares:", [n for n in nums if n % 2 == 0])
+
+def es_palindromo():
+    texto = input("Texto: ").replace(" ", "").lower()
+    print("Es palíndromo" if texto == texto[::-1] else "No es palíndromo")
+
+def factorial():
+    n = int(input("Número: "))
+    if n < 0:
+        print("No hay factorial para negativos.")
+        return
+    res = 1
+    for i in range(1, n + 1):
+        res *= i
+    print("Factorial:", res)
+
+def eliminar_duplicados():
+    lista = input("Elementos separados por espacio: ").split()
+    print("Sin duplicados:", list(set(lista)))
+
+def fizzbuzz():
+    n = int(input("Número: "))
+    if n % 3 == 0 and n % 5 == 0:
+        print("FizzBuzz")
+    elif n % 3 == 0:
+        print("Fizz")
+    elif n % 5 == 0:
+        print("Buzz")
+    else:
+        print(n)
+
+def contar_vocales():
+    cadena = input("Texto: ").lower()
+    vocales = "aeiou"
+    print("Cantidad de vocales:", sum(1 for c in cadena if c in vocales))
+
+def invertir_texto():
+    texto = input("Texto: ")
+    print("Invertido:", texto[::-1])
+
+# Funciones Nivel Avanzado
+def es_contrasena_segura():
+    c = input("Contraseña: ")
+    checks = [
+        any(x.isupper() for x in c),
+        any(x.islower() for x in c),
+        any(x.isdigit() for x in c),
+        any(x in string.punctuation for x in c)
+    ]
+    print("Segura" if all(checks) else "No segura")
+
+def lanzar_dado():
+    print("Dado lanzado:", random.randint(1, 6))
+
+def suma_elementos_unicos():
+    lista = list(map(int, input("Números: ").split()))
+    print("Suma de únicos:", sum(x for x in lista if lista.count(x) == 1))
+
+def generar_contrasena():
+    longitud = int(input("Longitud deseada: "))
+    chars = string.ascii_letters + string.digits + string.punctuation
+    print("Contraseña:", ''.join(random.choice(chars) for _ in range(longitud)))
+
+# Composición de funciones (ejemplo básico)
+def composicion():
+    def cuadrado(x): return x * x
+    def doble(x): return x * 2
+    n = int(input("Número: "))
+    print("cuadrado(doble(n)) =", cuadrado(doble(n)))
+
+# =========================
+# Menú Principal
+# =========================
+
+def menu():
+    while True:
+        print("\n*** MENÚ DE FUNCIONES ***")
+        print("1. Nivel Básico")
+        print("2. Nivel Intermedio")
+        print("3. Nivel Avanzado")
+        print("0. Salir")
+
+        opcion = input("Elige una opción: ")
+
+        if opcion == "1":
+            menu_basico()
+        elif opcion == "2":
+            menu_intermedio()
+        elif opcion == "3":
+            menu_avanzado()
+        elif opcion == "0":
+            print("¡Hasta luego!")
+            break
+        else:
+            print("Opción inválida.")
+
+def menu_basico():
+    print("\n--- Nivel Básico ---")
+    funciones = [
+        ("Saludar", saludar),
+        ("Sumar", sumar),
+        ("Par o impar", es_par),
+        ("Mayoría de edad", es_mayor_de_edad),
+        ("Celsius a Fahrenheit", celsius_a_fahrenheit),
+        ("Área de triángulo", area_triangulo),
+        ("Mayor de lista", mayor_de_lista),
+        ("Contar letra", contar_letra)
+    ]
+    ejecutar_funcion(funciones)
+
+def menu_intermedio():
+    print("\n--- Nivel Intermedio ---")
+    funciones = [
+        ("Filtrar pares", filtrar_pares),
+        ("Palíndromo", es_palindromo),
+        ("Factorial", factorial),
+        ("Eliminar duplicados", eliminar_duplicados),
+        ("FizzBuzz", fizzbuzz),
+        ("Contar vocales", contar_vocales),
+        ("Invertir texto", invertir_texto)
+    ]
+    ejecutar_funcion(funciones)
+
+def menu_avanzado():
+    print("\n--- Nivel Avanzado ---")
+    funciones = [
+        ("Validar contraseña segura", es_contrasena_segura),
+        ("Lanzar dado", lanzar_dado),
+        ("Suma de únicos", suma_elementos_unicos),
+        ("Generar contraseña", generar_contrasena),
+        ("Composición de funciones", composicion)
+    ]
+    ejecutar_funcion(funciones)
+
+def ejecutar_funcion(lista_funciones):
+    for i, (nombre, _) in enumerate(lista_funciones):
+        print(f"{i+1}. {nombre}")
+    eleccion = input("Selecciona una función: ")
+    if eleccion.isdigit() and 1 <= int(eleccion) <= len(lista_funciones):
+        _, funcion = lista_funciones[int(eleccion) - 1]
+        funcion()
+    else:
+        print("Opción inválida.")
+
+# Ejecutar menú
+menu()
